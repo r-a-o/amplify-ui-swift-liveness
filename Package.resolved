@@ -6,7 +6,7 @@
       "location" : "https://github.com/aws-amplify/amplify-swift",
       "state" : {
         "branch" : "test/no-light-support",
-        "revision" : "6aabc94f91193397b4c57e2b2823dbca4dbc0477"
+        "revision" : "cdee9437c8bae4be8198a9860d09cd79fdb044ba"
       }
     },
     {
