@@ -165,7 +165,6 @@ public struct FaceLivenessDetectorView: View {
                     break
                 }
             }
-        case .awaitingLivenessSession(let challenge):
         case .awaitingChallengeType:
             LoadingPageView()
             .onAppear {
