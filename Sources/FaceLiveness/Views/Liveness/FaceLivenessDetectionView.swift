@@ -166,6 +166,40 @@ public struct FaceLivenessDetectorView: View {
                 }
             }
         case .awaitingLivenessSession(let challenge):
+        case .awaitingChallengeType:
+            LoadingPageView()
+            .onAppear {
+                Task {
+                    do {
+                        let session = try await sessionTask.value
+                        viewModel.livenessService = session
+                        viewModel.registerServiceEvents(onChallengeTypeReceived: { challenge in
+                            self.displayState = DisplayState.awaitingLivenessSession(challenge)
+                        })
+                        viewModel.initializeLivenessStream()
+                    } catch {
+                        throw FaceLivenessDetectionError.accessDenied
+                    }
+                    
+                    DispatchQueue.main.async {
+                        if let faceDetector = viewModel.faceDetector as? FaceDetectorShortRange.Model {
+                            faceDetector.setFaceDetectionSessionConfigurationWrapper(configuration: viewModel)
+                        }
+                    }
+                }
+            }
+            .onReceive(viewModel.$livenessState) { output in
+                switch output.state {
+                case .encounteredUnrecoverableError(let error):
+                    let closeCode = error.webSocketCloseCode ?? .normalClosure
+                    viewModel.livenessService?.closeSocket(with: closeCode)
+                    isPresented = false
+                    onCompletion(.failure(mapError(error)))
+                default:
+                    break
+                }
+            }
+        case .awaitingLivenessSession(let challenge):
             Color.clear
                 .onAppear {
                     Task {
@@ -235,12 +269,14 @@ public struct FaceLivenessDetectorView: View {
 
     func mapError(_ livenessError: LivenessStateMachine.LivenessError) -> FaceLivenessDetectionError {
         switch livenessError {
-        case .userCancelled:
+        case .userCancelled, .viewResignation:
             return .userCancelled
         case .timedOut:
             return .faceInOvalMatchExceededTimeLimitError
         case .socketClosed:
             return .socketClosed
+        case .cameraNotAvailable:
+            return .cameraNotAvailable
         case .invalidCameraPositionSelecteed:
             return .invalidCameraPositionSelected
         default:

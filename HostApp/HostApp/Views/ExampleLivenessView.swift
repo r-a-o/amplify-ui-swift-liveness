@@ -29,27 +29,31 @@ struct ExampleLivenessView: View {
                     set: { _ in }
                 ),
                 onCompletion: { result in
-                    switch result {
-                    case .success:
-                        withAnimation { viewModel.presentationState = .result }
-                    case .failure(.sessionNotFound), .failure(.cameraPermissionDenied), .failure(.accessDenied):
-                        viewModel.presentationState = .liveness
-                        isPresented = false
-                    case .failure(.userCancelled):
-                        viewModel.presentationState = .liveness
-                        isPresented = false
-                    case .failure(.sessionTimedOut):
-                        viewModel.presentationState = .error(.sessionTimedOut)
-                    case .failure(.socketClosed):
-                        viewModel.presentationState = .error(.socketClosed)
-                    case .failure(.countdownNoFace), .failure(.countdownFaceTooClose), .failure(.countdownMultipleFaces):
-                        viewModel.presentationState = .error(.countdownFaceTooClose)
-                    case .failure(.invalidSignature):
-                        viewModel.presentationState = .error(.invalidSignature)
-                    case .failure(.invalidCameraPositionSelected):
-                        viewModel.presentationState = .error(.invalidCameraPositionSelected)
-                    default:
-                        viewModel.presentationState = .liveness
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success:
+                            withAnimation { viewModel.presentationState = .result }
+                        case .failure(.sessionNotFound), .failure(.cameraPermissionDenied), .failure(.accessDenied):
+                            viewModel.presentationState = .liveness
+                            isPresented = false
+                        case .failure(.userCancelled):
+                            viewModel.presentationState = .liveness
+                            isPresented = false
+                        case .failure(.sessionTimedOut):
+                            viewModel.presentationState = .error(.sessionTimedOut)
+                        case .failure(.socketClosed):
+                            viewModel.presentationState = .error(.socketClosed)
+                        case .failure(.countdownNoFace), .failure(.countdownFaceTooClose), .failure(.countdownMultipleFaces):
+                            viewModel.presentationState = .error(.countdownFaceTooClose)
+                        case .failure(.invalidSignature):
+                            viewModel.presentationState = .error(.invalidSignature)
+                        case .failure(.cameraNotAvailable):
+                            viewModel.presentationState = .error(.cameraNotAvailable)
+                        case .failure(.invalidCameraPositionSelected):
+                            viewModel.presentationState = .error(.invalidCameraPositionSelected)
+                        default:
+                            viewModel.presentationState = .liveness
+                        }
                     }
                 }
             )
@@ -77,6 +81,8 @@ struct ExampleLivenessView: View {
                         LivenessCheckErrorContentView.failedDuringCountdown
                     case .invalidSignature:
                         LivenessCheckErrorContentView.invalidSignature
+                    case .cameraNotAvailable:
+                        LivenessCheckErrorContentView.cameraNotAvailable
                     case . invalidCameraPositionSelected:
                         LivenessCheckErrorContentView.invalidCameraPositionSelected
                     default:

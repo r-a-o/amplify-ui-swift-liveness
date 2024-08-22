@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.3.2 (2024-08-20)
+
+## 1.3.1 (2024-08-19)
+
+### Bug Fixes
+
+- Returning .userCancelled when the app goes to the background during a Liveness check. (#167)
+
+## 1.3.0 (2024-08-06)
+
+### Features
+
+- Adding new error when the camera is not available even though permissions were granted. (#163)
+
+## 1.2.18 (2024-07-29)
+
+### Bug Fixes
+
+- Fixing a crash when attempting to call finishWriting (#161)
+
+## 1.2.17 (2024-07-11)
+
+### Bug Fixes
+
+- Updating the camera frame position when the subviews are laid out (#158)
+
+## 1.2.16 (2024-07-02)
+
+### Bug Fixes
+
+- Fixing video not being mirrored in the 'Get Ready' screen (#153)
+
 ## 1.2.15 (2024-06-26)
 
 ## 1.2.14 (2024-05-15)

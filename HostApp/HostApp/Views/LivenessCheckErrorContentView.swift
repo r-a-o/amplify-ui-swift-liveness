@@ -55,6 +55,11 @@ extension LivenessCheckErrorContentView {
         name: "The signature on the request is invalid.",
         description: "Ensure the device time is correct and try again."
     )
+
+    static let cameraNotAvailable = LivenessCheckErrorContentView(
+        name: "The camera could not be started.",
+        description: "There might be a hardware issue with the camera."
+    )
     
     static let invalidCameraPositionSelected = LivenessCheckErrorContentView(
         name: "The camera position selected is incompatible with the liveness challenge type requested.",

@@ -132,6 +132,12 @@ public struct FaceLivenessDetectionError: Error, Equatable {
         recoverySuggestion: "Please ensure the camera position is supported for the liveness challenge type requested."
     )
 
+    public static let cameraNotAvailable = FaceLivenessDetectionError(
+        code: 18,
+        message: "The camera is not available.",
+        recoverySuggestion: "There might be a hardware issue."
+    )
+
     public static func == (lhs: FaceLivenessDetectionError, rhs: FaceLivenessDetectionError) -> Bool {
         lhs.code == rhs.code
     }
