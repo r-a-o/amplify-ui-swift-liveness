@@ -60,11 +60,6 @@ extension LivenessCheckErrorContentView {
         name: "The camera could not be started.",
         description: "There might be a hardware issue with the camera."
     )
-    
-    static let invalidCameraPositionSelected = LivenessCheckErrorContentView(
-        name: "The camera position selected is incompatible with the liveness challenge type requested.",
-        description: "Please ensure the camera position is supported for the liveness challenge type requested."
-    )
 
 }
 
