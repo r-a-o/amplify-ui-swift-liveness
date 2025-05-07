@@ -10,7 +10,7 @@ import SwiftUI
 import AVFoundation
 @_spi(PredictionsFaceLiveness) import AWSPredictionsPlugin
 
-fileprivate let videoSize: CGSize = .init(width: 960, height: 1280)
+fileprivate let videoSize: CGSize = .init(width: 480, height: 640)
 fileprivate let defaultNoFitTimeoutInterval: TimeInterval = 7
 
 @MainActor
