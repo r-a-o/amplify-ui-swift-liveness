@@ -7,8 +7,8 @@
 
 import AVFoundation
 
-fileprivate let videoWidth = 480
-fileprivate let videoHeight = 640
+fileprivate let videoWidth = 960
+fileprivate let videoHeight = 1280
 fileprivate let bitRate = 1_000_000
 
 class LivenessAVAssetWriterInput: AVAssetWriterInput {

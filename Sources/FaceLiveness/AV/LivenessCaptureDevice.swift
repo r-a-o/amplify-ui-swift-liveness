@@ -9,7 +9,7 @@ import AVFoundation
 
 struct LivenessCaptureDevice {
     let avCaptureDevice: AVCaptureDevice?
-    var preset: AVCaptureSession.Preset = .vga640x480
+    var preset: AVCaptureSession.Preset = .hd1920x1080
     var fps: Double = 30
     var exposure: AVCaptureDevice.ExposureMode = .continuousAutoExposure
     var whiteBalance: AVCaptureDevice.WhiteBalanceMode = .continuousAutoWhiteBalance
